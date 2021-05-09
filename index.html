@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>First+Third - Front end challenge</title>
+    <base href="./">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="center-screen">
+        <div class="main-content">
+            <h1>Newsletter</h1>
+            <p>Select all the newsletters you’d like to receive</p>
+        </div>
+        <div class="newsletter-Option">
+            <div class="newsletter-Content">
+                <div class="newsletter-Content-Left">
+                    <img src="assets/blank.png">
+                </div>
+                <div class="newsletter-Content-Middle">
+                    <h2>Reverse The Online Gambling Ban</h2>
+                    <p>The MPA comes with three different sizes of foam and silicone tips and a carrying pouch.</p>
+                </div>
+                <div class="newsletter-Content-Right">
+                    <img src="assets/circle-not-active.png" id="first" onclick="selectFirst()">
+                </div>
+            </div>
+        </div>
+        <div class="newsletter-Option">
+            <div class="newsletter-Content">
+                <div class="newsletter-Content-Left">
+                    <img src="assets/blank.png">
+                </div>
+                <div class="newsletter-Content-Middle">
+                    <h2>Successful Myspace Profile</h2>
+                    <p>All users on MySpace will know that there are millions of people out there.</p>
+                </div>
+                <div class="newsletter-Content-Right">
+                    <img src="assets/circle-not-active.png" id="second" onclick="selectSecond()">
+                </div>
+            </div>
+        </div>
+        <div class="newsletter-Option">
+            <div class="newsletter-Content">
+                <div class="newsletter-Content-Left">
+                    <img src="assets/blank.png">
+                </div>
+                <div class="newsletter-Content-Middle">
+                    <h2>Home Audio Recording For Everyone</h2>
+                    <p>The number of friends and acquaintances will grow in a large number. This is what you should be looking for.</p>
+                </div>
+                <div class="newsletter-Content-Right">
+                    <img src="assets/circle-not-active.png" id="third" onclick="selectThird()">
+                </div>
+            </div>
+        </div>
+        <div class="newsletter-Option">
+            <div class="newsletter-Content">
+                <div class="newsletter-Content-Left">
+                    <img src="assets/blank.png">
+                </div>
+                <div class="newsletter-Content-Middle">
+                    <h2>Buying Used Electronic Test</h2>
+                    <p>People after all will make friends after reading about you. If you have an ugly profile, there is no way th</p>
+                </div>
+                <div class="newsletter-Content-Right">
+                    <img src="assets/circle-not-active.png" id="fourth" onclick="selectFourth()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-content">
+        <div class="mid-width">
+            <input type="text" class="field" placeholder="Enter email" id="email" name="mail" required>
+            <button type="submit" class="blue-button" id="main-button" onclick="emailSent()">SUBSCRIBE</button>
+            <label class="container">
+                <input type="checkbox" id="unsubscribe" onclick="check()">
+                <span class="checkmark"> I do not want to receive information about future newsletters.</span>
+            </label>
+        </div>
+        <p class="message" id="endmessage">.</p>
+    </div>
+</body>
+
+<script type=text/javascript>
+    var first_Selected = document.getElementById('first');
+    var second_Selected = document.getElementById('second');
+    var third_Selected = document.getElementById('third');
+    var fourth_Selected = document.getElementById('fourth');
+    var xhttp = new XMLHttpRequest();
+    var url_Params = "&newsletters=";
+
+    window.onload = function() {
+        selectSecond();
+    };
+
+    function selectFirst() {
+        if (first_Selected.getAttribute('src') == "assets/circle-not-active.png") {
+            first_Selected.src = "assets/circle-active.png";
+            url_Params = url_Params + "first&";
+        } else {
+            url_Params = url_Params.replace('first&', '');
+            first_Selected.src = "assets/circle-not-active.png";
+        }
+    }
+
+    function selectSecond() {
+        if (second_Selected.getAttribute('src') == "assets/circle-not-active.png") {
+            second_Selected.src = "assets/circle-active.png";
+            url_Params = url_Params + "second&";
+        } else {
+            url_Params = url_Params.replace("second&", '');
+            second_Selected.src = "assets/circle-not-active.png";
+        }
+    }
+
+    function selectThird() {
+        if (third_Selected.getAttribute('src') == "assets/circle-not-active.png") {
+            third_Selected.src = "assets/circle-active.png";
+            url_Params = url_Params + "third&";
+        } else {
+            url_Params = url_Params.replace("third&", '');
+            third_Selected.src = "assets/circle-not-active.png";
+        }
+    }
+
+    function selectFourth() {
+        if (fourth_Selected.getAttribute('src') == "assets/circle-not-active.png") {
+            fourth_Selected.src = "assets/circle-active.png";
+            url_Params = url_Params + "fourth&";
+        } else {
+            url_Params = url_Params.replace("fourth&", '');
+            fourth_Selected.src = "assets/circle-not-active.png";
+        }
+    }
+
+    var changeMessage = document.getElementById("endmessage");
+    var checkbox = document.getElementById('unsubscribe');
+
+    function check() {
+        console.log('checked');
+        if (checkbox.checked) {
+            document.getElementById('main-button').innerHTML = "UNSUBSCRIBE";
+        } else {
+            document.getElementById('main-button').innerHTML = "SUBSCRIBE";
+        }
+    }
+
+    function emailSent() {
+        var textVal = document.getElementById("email").value;
+        var randomNumber = 0;
+        if (checkbox.checked) {
+            url_Params = "?newsletters=unsubscribe";
+            changeMessage.style.color = "black";
+            //Webhook method is here! Since this is a test, this doesn't work
+            xhttp.open("POST", "https://somewebhook.com/?email=" + textVal + url_Params, true);
+            xhttp.send();
+            changeMessage.innerHTML = "Your email won't be subscribed to our newsletter, we're sorry to see you go.";
+        } else {
+            if (!textVal.match(/\S/)) {
+                changeMessage.style.color = "black";
+                changeMessage.innerHTML = "Please enter your email!";
+            } else {
+                changeMessage.style.color = "black";
+                changeMessage.innerHTML = "Processing...";
+                //Webhook method is here again.
+                xhttp.open("POST", "https://somewebhook.com/?email=" + textVal + url_Params, true);
+                xhttp.send();
+                randomNumber = Math.floor(Math.random() * 10)
+                if (randomNumber >= 5) {
+                    setTimeout(function() {
+                        changeMessage.innerHTML = "Your email has been subscribed on our newsletter successfully!";
+                    }, 2000);
+                } else {
+                    setTimeout(function() {
+                        changeMessage.innerHTML = "An error has occurred! Please try again.";
+                    }, 2000);
+                }
+            }
+        }
+    }
+</script>
+
+</html>
